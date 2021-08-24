@@ -1,5 +1,5 @@
 applicationType: grpc
-defaultPackage: br.com.zup.com.edu
+defaultPackage: br.com.zup.edu
 testFramework: junit
 sourceLanguage: kotlin
 buildTool: gradle

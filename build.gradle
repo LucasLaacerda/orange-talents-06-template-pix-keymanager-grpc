@@ -9,7 +9,7 @@ plugins {
 }
 
 version = "0.1"
-group = "br.com.zup.com.edu"
+group = "br.com.zup.edu"
 
 repositories {
     mavenCentral()
@@ -19,7 +19,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("br.com.zup.com.edu.*")
+        annotations("br.com.zup.edu.*")
     }
 }
 
@@ -39,16 +39,17 @@ dependencies {
     testImplementation("org.testcontainers:mysql")
     testImplementation("org.testcontainers:testcontainers")
     implementation("io.micronaut:micronaut-validation")
+    implementation("org.hibernate:hibernate-validator:5.2.4.Final")
 
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    testImplementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-http-client")
 
 }
 
 
 application {
-    mainClass.set("br.com.zup.com.edu.ApplicationKt")
+    mainClass.set("br.com.zup.edu.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
