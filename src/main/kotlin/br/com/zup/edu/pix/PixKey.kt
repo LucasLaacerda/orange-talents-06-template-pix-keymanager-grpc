@@ -1,6 +1,8 @@
 package br.com.zup.edu.pix
 
 
+import br.com.zup.edu.pix.account.AccountType
+import br.com.zup.edu.pix.account.LinkedAccount
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.Valid

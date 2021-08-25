@@ -1,4 +1,4 @@
-package br.com.zup.edu.pix
+package br.com.zup.edu.pix.validation
 
 import javax.validation.Constraint
 import javax.validation.Payload

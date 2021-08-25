@@ -1,6 +1,6 @@
 package br.com.zup.edu.client.itau
 
-import br.com.zup.edu.pix.LinkedAccount
+import br.com.zup.edu.pix.account.LinkedAccount
 
 data class ClientAccountResponse (
     val tipo: String,

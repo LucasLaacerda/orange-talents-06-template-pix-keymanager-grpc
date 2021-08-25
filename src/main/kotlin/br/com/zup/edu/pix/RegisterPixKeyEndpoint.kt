@@ -5,6 +5,7 @@ import br.com.zup.edu.KeyManagerServiceGrpc
 import br.com.zup.edu.RegisterPixKeyRequest
 import br.com.zup.edu.RegisterPixKeyResponse
 import br.com.zup.edu.RegisterPixKeyRequest.KeyType.*
+import br.com.zup.edu.pix.validation.validated
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import io.micronaut.http.client.exceptions.HttpClientResponseException
@@ -13,10 +14,10 @@ import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@ErrorHandler
+//@ErrorHandler
 @Singleton
 class RegisterPixKeyEndpoint(
-   @Inject private val service: RegisterPixKeyService
+   @Inject private var service: RegisterPixKeyService
 ) : KeyManagerServiceGrpc.KeyManagerServiceImplBase() {
 
     private val logger = LoggerFactory.getLogger(KeyManagerServiceGrpc::class.java)
@@ -32,14 +33,10 @@ class RegisterPixKeyEndpoint(
 
 //        val keyType = request.keyType
 //        val keyValue = request.keyValue
+//
+        try{
 
-
-        //verificar no client itau
-        try {
-
-
-
-                request.validated()
+                request.validated() //validacao regex
                 val newKey = request.toModel()
                 val key = service.register(newKey)
                 //criar entity chave
@@ -58,8 +55,6 @@ class RegisterPixKeyEndpoint(
 
                 responseObserver!!.onNext(response)
                 responseObserver.onCompleted()
-
-
         } catch (e: HttpClientResponseException) {
             val e = Status.INVALID_ARGUMENT
                 .withDescription("Informações invalidas")
@@ -67,32 +62,11 @@ class RegisterPixKeyEndpoint(
                 .asRuntimeException()
             responseObserver?.onError(e)
         }
+
     }
 
 
-    fun RegisterPixKeyRequest.validated(){
 
-        if(keyValue.trim().length>77){
-            throw  IllegalArgumentException("Chave Pix invalida! Chave deve ter no maximo 77 caracteres")
-        }
-
-
-            when(keyType){
-                CPF -> {
-                    if (!this.keyValue.matches("^[0-9]{11}\$".toRegex()))
-                            throw  IllegalArgumentException("cpf invalido! formato esperado: 12345678901")
-                }
-                EMAIL -> {
-                    if (!keyValue.matches("(?:[a-z0-9!#\$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#\$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
-                            .toRegex())) throw  IllegalArgumentException("email invalido")
-                }
-                CELULAR -> {
-                    if (!keyValue.matches("^\\+[1-9][0-9]\\d{1,14}\$".toRegex()))
-                        throw  IllegalArgumentException("celular invalido! formato esperado: +5585988714077")
-            }
-
-        }
-    }
 
 }
 

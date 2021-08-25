@@ -1,5 +1,8 @@
 package br.com.zup.edu.pix
 
+import br.com.zup.edu.pix.account.AccountType
+import br.com.zup.edu.pix.account.LinkedAccount
+import br.com.zup.edu.pix.validation.ValidUUID
 import io.micronaut.core.annotation.Introspected
 import java.util.*
 import javax.validation.constraints.NotBlank

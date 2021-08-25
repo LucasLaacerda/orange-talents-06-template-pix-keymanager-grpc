@@ -1,10 +1,10 @@
-package br.com.zup.edu.grpc
+package br.com.zup.edu.grpc.handlers
 
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ExceptionHandlerResolver(@Inject private val handlers: List<ExceptionHandler<*>>) {
+class ExceptionHandlerResolver(@Inject private val handlers: List<ExceptionHandler<Exception>>) {
 
     private var defaultHandler: ExceptionHandler<Exception> = DefaultExceptionHandler()
 
@@ -12,7 +12,7 @@ class ExceptionHandlerResolver(@Inject private val handlers: List<ExceptionHandl
         this.defaultHandler = defaultHandler
     }
 
-    fun resolve(e: Exception): ExceptionHandler<*>{
+    fun resolve(e: Exception): ExceptionHandler<Exception> {
         val foundHandles = handlers.filter{ h -> h.supports(e)}
         if (foundHandles.size > 1)
             throw IllegalStateException("Mais de um handler em uma unica excpetion")

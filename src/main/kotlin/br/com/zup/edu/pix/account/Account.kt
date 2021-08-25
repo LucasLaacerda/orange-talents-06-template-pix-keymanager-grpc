@@ -1,4 +1,4 @@
-package br.com.zup.edu.pix
+package br.com.zup.edu.pix.account
 
 
 import javax.persistence.Column

@@ -1,4 +1,4 @@
-package br.com.zup.edu.grpc
+package br.com.zup.edu.grpc.handlers
 
 import io.grpc.Metadata
 import io.grpc.Status

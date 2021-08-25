@@ -3,10 +3,11 @@ package br.com.zup.edu.pix
 
 import javax.inject.Singleton
 import javax.validation.Constraint
-import javax.validation.ConstraintValidator
-import javax.validation.ConstraintValidatorContext
 import javax.validation.Payload
 import kotlin.reflect.KClass
+import io.micronaut.core.annotation.AnnotationValue
+import io.micronaut.validation.validator.constraints.ConstraintValidator
+import io.micronaut.validation.validator.constraints.ConstraintValidatorContext
 
 @MustBeDocumented
 @Target(AnnotationTarget.CLASS,AnnotationTarget.TYPE)
@@ -20,11 +21,11 @@ annotation class ValidPixKey(
 
 
 @Singleton
-class ValidPixKeyValidator: ConstraintValidator<ValidPixKey, NewPixKey>{
+open class ValidPixKeyValidator: ConstraintValidator<ValidPixKey, NewPixKey>{
 
     override fun isValid(
         value: NewPixKey?,
-        //annotationMetadata: AnnotationValue<ValidPixKey>,
+        annotationMetadata: AnnotationValue<ValidPixKey>,
         context: ConstraintValidatorContext,
     ): Boolean {
         if (value?.type == null){

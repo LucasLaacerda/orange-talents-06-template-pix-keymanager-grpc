@@ -1,9 +1,7 @@
 package br.com.zup.edu.client.itau
 
-import br.com.zup.edu.RegisterPixKeyRequest
-import br.com.zup.edu.pix.Account
-import br.com.zup.edu.pix.AccountType
-import javax.persistence.Entity
+import br.com.zup.edu.pix.account.Account
+import br.com.zup.edu.pix.account.AccountType
 
 data class ResponseClientAccount(
     val tipo: AccountType,
