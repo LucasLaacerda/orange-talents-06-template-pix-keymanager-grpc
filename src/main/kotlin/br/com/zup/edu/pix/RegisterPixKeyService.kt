@@ -13,8 +13,7 @@ import javax.validation.Valid
 
 //@Validated
 @Singleton
-class RegisterPixKeyService(@Inject val clientErpItauClient: ErpItauClient,
-                            @Inject val repository: PixKeyRepository) {
+class RegisterPixKeyService(@Inject val clientErpItauClient: ErpItauClient, @Inject val repository: PixKeyRepository) {
 
 
     //@Transactional
@@ -23,7 +22,7 @@ class RegisterPixKeyService(@Inject val clientErpItauClient: ErpItauClient,
 
     if (repository.existsByKeyValue(newKey.keyValue.toString()) &&
         !newKey.type?.name.equals("ALEATORIA"))
-        
+
         throw PixKeyExistingException("Chave Pix '${newKey.keyValue}' já existente")
 
     val accountResponse = clientErpItauClient.findClient(

@@ -8,5 +8,6 @@ import javax.xml.crypto.dsig.keyinfo.KeyValue
 interface PixKeyRepository: JpaRepository<PixKey,Long> {
 
     fun existsByKeyValue(KeyValue: String): Boolean
+    fun existsByClientId(clientId: String?): Boolean
 
 }
