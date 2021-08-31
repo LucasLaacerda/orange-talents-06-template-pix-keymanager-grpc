@@ -4,6 +4,7 @@ package br.com.zup.edu.pix
 import br.com.zup.edu.pix.account.AccountType
 import br.com.zup.edu.pix.account.LinkedAccount
 import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.*
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
@@ -35,9 +36,25 @@ class PixKey(
     ){
 
     @Id
-    @GeneratedValue
-    var id: Long? = null
+    var id: String? = UUID.randomUUID().toString()
 
     @Column(nullable = false)
     var registerDate: LocalDateTime = LocalDateTime.now()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as PixKey
+
+
+        if (account != other.account) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = account.hashCode()
+        return result
+    }
 }

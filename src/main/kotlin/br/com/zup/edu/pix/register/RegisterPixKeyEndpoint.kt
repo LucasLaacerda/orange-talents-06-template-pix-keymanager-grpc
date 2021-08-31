@@ -1,16 +1,15 @@
-package br.com.zup.edu.pix
+package br.com.zup.edu.pix.register
 
 
-import br.com.zup.edu.KeyManagerServiceGrpc
+import br.com.zup.edu.KeyManagerRegisterServiceGrpc
 import br.com.zup.edu.RegisterPixKeyRequest
 import br.com.zup.edu.RegisterPixKeyResponse
-import br.com.zup.edu.RegisterPixKeyRequest.KeyType.*
+import br.com.zup.edu.pix.toModel
 import br.com.zup.edu.pix.validation.validated
 import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import org.slf4j.LoggerFactory
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,9 +17,9 @@ import javax.inject.Singleton
 @Singleton
 class RegisterPixKeyEndpoint(
    @Inject private var service: RegisterPixKeyService
-) : KeyManagerServiceGrpc.KeyManagerServiceImplBase() {
+) : KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceImplBase() {
 
-    private val logger = LoggerFactory.getLogger(KeyManagerServiceGrpc::class.java)
+    private val logger = LoggerFactory.getLogger(KeyManagerRegisterServiceGrpc::class.java)
 
     override fun registerPixKey(
         request: RegisterPixKeyRequest,

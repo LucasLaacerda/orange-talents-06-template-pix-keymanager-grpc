@@ -19,6 +19,7 @@ data class ClientAccountResponse (
             accountNumber = this.numero
         )
     }
+
     data class InstitutionResponse(val nome: String, val ispb:String) {
     }
 

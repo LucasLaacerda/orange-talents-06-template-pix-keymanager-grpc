@@ -1,15 +1,12 @@
-package br.com.zup.edu.pix
+package br.com.zup.edu.pix.register
 
 import br.com.zup.edu.client.itau.ErpItauClient
 import br.com.zup.edu.grpc.handlers.PixKeyExistingException
-import io.grpc.Status
-import io.micronaut.http.client.exceptions.HttpClientResponseException
-import io.micronaut.validation.Validated
+import br.com.zup.edu.pix.PixKey
+import br.com.zup.edu.pix.PixKeyRepository
 import java.lang.IllegalStateException
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.transaction.Transactional
-import javax.validation.Valid
 
 //@Validated
 @Singleton
@@ -17,7 +14,7 @@ class RegisterPixKeyService(@Inject val clientErpItauClient: ErpItauClient, @Inj
 
 
     //@Transactional
-    fun register(newKey: NewPixKey): PixKey{
+    fun register(newKey: NewPixKey): PixKey {
 
 
     if (repository.existsByKeyValue(newKey.keyValue.toString()) &&

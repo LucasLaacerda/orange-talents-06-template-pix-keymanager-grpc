@@ -1,6 +1,7 @@
 package br.com.zup.edu.pix
 
 
+import br.com.zup.edu.pix.register.NewPixKey
 import javax.inject.Singleton
 import javax.validation.Constraint
 import javax.validation.Payload

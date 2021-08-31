@@ -1,24 +1,38 @@
 package br.com.zup.edu.pix
 
-import br.com.zup.edu.KeyManagerServiceGrpc
+import br.com.zup.edu.KeyManagerRegisterServiceGrpc
 import br.com.zup.edu.RegisterPixKeyRequest
+import br.com.zup.edu.client.itau.ErpItauClient
 import io.grpc.ManagedChannel
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
 import io.micronaut.context.annotation.Factory
 import io.micronaut.grpc.annotation.GrpcChannel
 import io.micronaut.grpc.server.GrpcServerChannel
+import io.micronaut.http.HttpResponse
+import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import javax.inject.Singleton
 import org.junit.jupiter.api.*
+import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
+import java.util.*
+import javax.inject.Inject
 
 @MicronautTest(transactional = false)
-internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val grpcClient:KeyManagerServiceGrpc.KeyManagerServiceBlockingStub){
+internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val grpcClient: KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceBlockingStub){
+
+    //@Inject
+    //lateinit var erpItauClient: ErpItauClient
+
+    companion object{
+        val CLIENTE_ID = "c56dfef4-7901-44fb-84e2-a2cefb157890"
+    }
 
     @BeforeEach
     fun setUp() {
@@ -33,7 +47,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `deve registrar uma nova chave pix com email`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID, tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val response = grpcClient.registerPixKey(
             RegisterPixKeyRequest
@@ -56,7 +71,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `deve registrar uma nova chave pix com cpf`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val response = grpcClient.registerPixKey(
             RegisterPixKeyRequest
@@ -78,7 +94,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `deve registrar uma nova chave pix com celular`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val response = grpcClient.registerPixKey(
             RegisterPixKeyRequest
@@ -101,7 +118,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave, deve retornar erro email invalido`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val erro = assertThrows<StatusRuntimeException> {
             grpcClient.registerPixKey(
@@ -124,7 +142,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave, deve retornar erro cpf invalida`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val erro = assertThrows<StatusRuntimeException> {
             grpcClient.registerPixKey(
@@ -147,7 +166,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave, deve retornar erro celular invalido`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val erro = assertThrows<StatusRuntimeException> {
             grpcClient.registerPixKey(
@@ -170,7 +190,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave, deve retornar erro cliente nao encontrado`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = UUID.randomUUID().toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.notFound())
         //acao
         val erro = assertThrows<StatusRuntimeException> {
             grpcClient.registerPixKey(
@@ -194,6 +215,9 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave, deve retornar erro chave ja registrada`() {
         //cenario
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+         //   .thenReturn(HttpResponse.ok())
+
         setUp()
         `deve registrar uma nova chave pix com email`()
         //acao
@@ -218,7 +242,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `deve registrar uma chave aleatoria`() {
         //cenario
-
+        //`when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //    .thenReturn(HttpResponse.ok())
         //acao
         val response = grpcClient.registerPixKey(
                 RegisterPixKeyRequest
@@ -242,7 +267,8 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
     @Test
     fun `nao deve registrar chave maior que 77`() {
         //cenario
-
+        // `when`(erpItauClient.findClient(clienteId = CLIENTE_ID.toString(), tipo = "CONTA_CORRENTE"))
+        //   .thenReturn(HttpResponse.ok())
         //acao
         val erro = assertThrows<StatusRuntimeException> {
             grpcClient.registerPixKey(
@@ -262,11 +288,16 @@ internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val g
         }
     }
 
+//    @MockBean(ErpItauClient::class)
+//    fun clientItau(): ErpItauClient? {
+//        return mock(ErpItauClient::class.java)
+//    }
+
     @Factory
     class Clients {
         @Singleton
-        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): KeyManagerServiceGrpc.KeyManagerServiceBlockingStub? {
-            return KeyManagerServiceGrpc.newBlockingStub(channel)
+        fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceBlockingStub? {
+            return KeyManagerRegisterServiceGrpc.newBlockingStub(channel)
         }
     }
 

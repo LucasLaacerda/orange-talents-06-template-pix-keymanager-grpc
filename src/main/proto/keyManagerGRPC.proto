@@ -7,8 +7,17 @@ option objc_class_prefix = "HLW";
 
 package br.com.zup.edu;
 
-service KeyManagerService {
+
+
+service KeyManagerRegisterService {
+
   rpc registerPixKey(RegisterPixKeyRequest) returns (RegisterPixKeyResponse) {}
+
+}
+service KeyManagerDeleteService {
+
+  rpc deletePixKey(DeletePixKeyRequest) returns (DeletePixKeyResponse) {}
+
 }
 
 message RegisterPixKeyRequest {
@@ -36,4 +45,13 @@ message RegisterPixKeyRequest {
 message RegisterPixKeyResponse {
   string clientId = 1;
   string pixKey = 2;
+}
+
+message DeletePixKeyResponse {
+  string info = 1;
+}
+
+message DeletePixKeyRequest {
+  string pixId = 1;
+  string clientId = 2;
 }

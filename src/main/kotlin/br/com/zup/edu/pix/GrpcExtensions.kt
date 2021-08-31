@@ -4,6 +4,7 @@ import br.com.zup.edu.RegisterPixKeyRequest
 import br.com.zup.edu.pix.account.AccountType.UNKNOWN_ACCOUNT_TYPE
 import br.com.zup.edu.pix.KeyType.UNKNOWN_KEY_TYPE
 import br.com.zup.edu.pix.account.AccountType
+import br.com.zup.edu.pix.register.NewPixKey
 
 fun RegisterPixKeyRequest.toModel(): NewPixKey {
     return NewPixKey(
