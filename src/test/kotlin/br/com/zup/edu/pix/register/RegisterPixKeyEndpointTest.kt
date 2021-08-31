@@ -1,16 +1,14 @@
-package br.com.zup.edu.pix
+package br.com.zup.edu.pix.register
 
 import br.com.zup.edu.KeyManagerRegisterServiceGrpc
 import br.com.zup.edu.RegisterPixKeyRequest
-import br.com.zup.edu.client.itau.ErpItauClient
+import br.com.zup.edu.pix.PixKeyRepository
 import io.grpc.ManagedChannel
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
 import io.micronaut.context.annotation.Factory
 import io.micronaut.grpc.annotation.GrpcChannel
 import io.micronaut.grpc.server.GrpcServerChannel
-import io.micronaut.http.HttpResponse
-import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -18,14 +16,9 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import javax.inject.Singleton
 import org.junit.jupiter.api.*
-import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
-import java.util.*
-import javax.inject.Inject
 
 @MicronautTest(transactional = false)
-internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository,val grpcClient: KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceBlockingStub){
+internal class RegisterPixKeyEndpointTest(val repository: PixKeyRepository, val grpcClient: KeyManagerRegisterServiceGrpc.KeyManagerRegisterServiceBlockingStub){
 
     //@Inject
     //lateinit var erpItauClient: ErpItauClient

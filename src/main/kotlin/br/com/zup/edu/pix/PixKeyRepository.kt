@@ -10,6 +10,6 @@ interface PixKeyRepository: JpaRepository<PixKey,String> {
 
     fun existsByKeyValue(KeyValue: String): Boolean
     fun existsByClientId(clientId: String?): Boolean
-    override fun findById(pixId: String?): Optional<PixKey>
-
+    fun findByIdAndClientId(pixId: String?,clientId: String?): Optional<PixKey>
+    fun findByKeyValue(pixKeyValue: String): PixKey
 }

@@ -17,14 +17,14 @@ class DeletePixKeyService(@Inject val clientErpItauClient: ErpItauClient, @Injec
     //@Transactional
     fun delete(request: DeletePixKeyRequest) {
 
-    val keyFound: Optional<PixKey>? = repository.findById(request.pixId)
+    val keyFound: Optional<PixKey>? = repository.findByIdAndClientId(request.pixId,request.clientId)
 
     if (!(keyFound?.isPresent!!))
-        throw IllegalStateException("Chave Pix com id:'${request.pixId}' não foi encontrada")
+        throw IllegalStateException("Chave Pix com id:'${request.pixId}' para o cliente de id: '${request.clientId}' não foi encontrada")
 
     val key = keyFound.get()
 
-    clientErpItauClient.findClient(
+    val clientBank = clientErpItauClient.findClient(
         request.clientId,
         key.accountType!!.name
     ).body()?.toModel() ?:
