@@ -24,12 +24,6 @@ class DeletePixKeyService(@Inject val clientErpItauClient: ErpItauClient, @Injec
 
     val key = keyFound.get()
 
-    val clientBank = clientErpItauClient.findClient(
-        request.clientId,
-        key.accountType!!.name
-    ).body()?.toModel() ?:
-    throw IllegalStateException("Cliente não encontrado")
-
     repository.delete(key)
 
     }

@@ -24,10 +24,6 @@ class DeletePixKeyEndpoint(
         logger.info("Deletando chave para o request: $request")
         //validar dados de entrada
 
-
-
-        try{
-
             service.delete(request)
 
             val response = DeletePixKeyResponse
@@ -39,13 +35,6 @@ class DeletePixKeyEndpoint(
 
             responseObserver!!.onNext(response)
             responseObserver.onCompleted()
-        } catch (e: HttpClientResponseException) {
-            val e = Status.INVALID_ARGUMENT
-                .withDescription("Informações invalidas")
-                .augmentDescription("Não encontramos conta bancaria referente aos dados informados")
-                .asRuntimeException()
-            responseObserver?.onError(e)
-        }
 
     }
 
